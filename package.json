@@ -7,13 +7,21 @@
     "type": "git",
     "url": "https://github.com/your/repository.git"
   },
-  "module": "dist/change-me.min.mjs",
+  "module": "dist/nodes-rename-me.mjs",
   "scripts": {
     "start": "blackprint serve",
+    "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js --verbose ./tests/",
     "build-prod": "blackprint build production"
   },
   "devDependencies": {
-    "@blackprint/cli-tools": "0.3.x"
+    "scarletsframe": "0.35.x",
+    "@blackprint/engine": "0.6.x",
+    "@blackprint/sketch": "0.6.x",
+    "@blackprint/cli-tools": "0.3.x",
+    "jest": "^27.4"
+  },
+  "blackprint": {
+    "engine": ">=0.6.4"
   },
   "keywords": [
     "blackprint"
