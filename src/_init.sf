@@ -26,6 +26,7 @@ let Blackprint = window.Blackprint.loadScope({
 
 // Use sQuery
 let $ = sf.$;
+var Telegram = window.telegram;
 
 // Global shared context (wait it to avoid race condition)
 let Context = await Blackprint.getContext('Your/Module/Name');

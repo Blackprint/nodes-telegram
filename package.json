@@ -11,7 +11,8 @@
   "scripts": {
     "start": "blackprint serve",
     "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js --verbose ./tests/",
-    "build-prod": "blackprint build production"
+    "build-prod": "blackprint build production",
+	  "build-gramjs": "cd ./gramjs && npx webpack --mode production"
   },
   "devDependencies": {
     "scarletsframe": "0.35.x",
