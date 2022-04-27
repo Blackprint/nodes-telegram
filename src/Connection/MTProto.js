@@ -19,7 +19,7 @@ class extends Blackprint.Node {
 
 		let iface = this.setInterface();
 		iface.title = "Telegram MTProto";
-		iface.type = "event";
+		// iface.type = "event";
 
 		this._toast = new NodeToast(iface);
 	}
@@ -51,7 +51,46 @@ class extends Blackprint.Node {
 				retryDelay: Input.RetryDelay,
 		});
 
+		temp._bpEvList = {};
+		temp.addEventHandler(event => this._onEvent(event));
+
+		temp._bpOn = function(name, callback){
+			let list = this._bpEvList[name] ??= [];
+			if(list.includes(callback)) return;
+			list.push(callback);
+		}
+		temp._bpOff = function(name, callback){
+			let list = this._bpEvList[name];
+			if(list == null || list.length === 0) return;
+
+			if(callback == null)
+				return list.length = 0;
+
+			let i = list.includes(callback);
+			if(i === -1) return;
+
+			list.splice(i, 1);
+		}
+
 		temp.setLogLevel("error"); // only errors
+	}
+	_onEvent(event){
+		if(event.className === void 0){
+			// let eventName = event.constructor.name;
+			return;
+		}
+
+		let { _bpEvList } = this.ref.Output.Client;
+		let handler = _bpEvList[event.className];
+
+		if(handler === void 0){
+			// console.log('Unhandled Event:', event);
+			return;
+		}
+
+		for (let i=0; i < handler.length; i++) {
+			handler[i](event);
+		}
 	}
 	async connect(){
 		let { Input, Output } = this.ref;
@@ -83,13 +122,14 @@ class extends Blackprint.Node {
 			toast.warn();
 		}
 
+		toast.clear();
 		toast.success("Connected");
 		Output.IsConnected = true;
 	}
 	destroy(){this.disconnect()}
 	disconnect(){
 		this.ref.Output.Client.disconnect();
-		Output.IsConnected = false;
-		toast.warn("Disconnected");
+		this.ref.Output.IsConnected = false;
+		this._toast.warn("Disconnected");
 	}
 });
