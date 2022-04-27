@@ -15,11 +15,15 @@ await imports([
 	// "https://cdn.jsdelivr.net/npm/sfmediastream@latest",
 ]);
 
-var Telegram = window.telegram;
+let Tg = window.telegram;
 
 // Global shared context
-let Context = Blackprint.createContext('Your/Module/Name');
+let Context = Blackprint.createContext('Telegram');
 
 // This is needed to avoid duplicated event listener when using hot reload
 // Event listener that registered with same slot will be replaced
 Context.EventSlot = {slot: 'my-private-event-slot'};
+
+// The error must be thrown
+Tg.Logger.prototype.error = function(e){throw e};
+let VirtualClass = Tg.Api.Chat.prototype.constructor;

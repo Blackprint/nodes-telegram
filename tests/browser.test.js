@@ -12,6 +12,6 @@ test('Blackprint.Sketch does exist on window', () => {
 });
 
 // test('Load custom node modules', () => {
-// 	require('../dist/nodes-rename-me.mjs');
-// 	require('../dist/nodes-rename-me.sf.mjs');
+// 	require('../dist/nodes-telegram.mjs');
+// 	require('../dist/nodes-telegram.sf.mjs');
 // });
