@@ -5,10 +5,10 @@ name: Bundle Dependency
 on:
   workflow_dispatch:
     inputs:
-      ver:
-        description: '0 = View list of files that will be published before the real release'
+      dryRun:
+        description: 'View list of files that will be published before the real release'
         required: true
-        default: '0.0.0' ## Dry run
+        default: 'true' ## Dry run
   release:
     # This specifies that the build will be triggered when we publish a release
     types: [published]
@@ -36,16 +36,16 @@ jobs:
       - name: 🛠 Bundling Modules
         run: npm run build-gramjs
 
-      - run: npm version ${{ github.event.inputs.ver }}-dep
+      - run: mkdir ./dist
       - run: mv ./gramjs/browser/ ./dist/browser/
 
       - name: 📦 Dry Run
-        if: github.event.inputs.ver == '0.0.0'
+        if: github.event.inputs.dryRun == 'true'
         run: npm publish --dry-run
 
       # If you want to publish to NPM, make sure to put your NPM token to repository settings
       - name: 📦 Publish Packages
-        if: github.event.inputs.ver != '0.0.0'
+        if: github.event.inputs.dryRun != 'true'
         run: npm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

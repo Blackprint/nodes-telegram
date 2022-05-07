@@ -1,7 +1,7 @@
 {
   "name": "@blackprint/nodes-telegram",
   "description": "Blackprint nodes for Telegram",
-  "version": "0.0.1",
+  "version": "0.0.1-dep",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,9 +12,9 @@
     "start": "blackprint serve",
     "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js --verbose ./tests/",
     "build-prod": "blackprint build production",
-	  "npm-install-gramjs": "cd ./gramjs && npm install",
-	  "pnpm-install-gramjs": "cd ./gramjs && pnpm install",
-	  "build-gramjs": "cd ./gramjs && npx webpack --mode production"
+    "npm-install-gramjs": "cd ./gramjs && npm install",
+    "pnpm-install-gramjs": "cd ./gramjs && pnpm install",
+    "build-gramjs": "cd ./gramjs && npx webpack --mode production"
   },
   "devDependencies": {
     "scarletsframe": "0.35.x",
