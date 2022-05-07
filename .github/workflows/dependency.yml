@@ -28,6 +28,8 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
 
+      - run: npm i -g webpack webpack-cli
+
       - name: 🛠 Bundling Modules
         run: npm run build-gramjs
 
