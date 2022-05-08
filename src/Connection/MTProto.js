@@ -128,7 +128,7 @@ class extends Blackprint.Node {
 	}
 	destroy(){this.disconnect()}
 	disconnect(){
-		this.ref.Output.Client.disconnect();
+		this.ref.Output.Client?.disconnect();
 		this.ref.Output.IsConnected = false;
 		this._toast.warn("Disconnected");
 	}
