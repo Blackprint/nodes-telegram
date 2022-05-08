@@ -2,6 +2,7 @@
 [![Build Status](https://github.com/Blackprint/nodes-telegram/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/Blackprint/nodes-telegram/actions/workflows/build.yml)
 
 ## Blackprint nodes for Telegram
+This module is depends on [gramjs](https://github.com/gram-js/gramjs) (MIT License).
 
 ## Import this nodes from URL
 Please specify the version to avoid breaking changes.

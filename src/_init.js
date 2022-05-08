@@ -11,8 +11,8 @@ let Blackprint = window.Blackprint.loadScope({
 });
 
 await imports([
-	"http://localhost:6789/dist/telegram.js", // npm run build-gramjs
-	// "https://cdn.jsdelivr.net/npm/sfmediastream@latest",
+	// "http://localhost:6789/dist/telegram.js", // npm run build-gramjs
+	"https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.0.1-dep/dist/browser/telegram.js",
 ]);
 
 let Tg = window.telegram;
