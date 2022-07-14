@@ -44,7 +44,7 @@ class extends Blackprint.Node {
 			return toast.warn("API_Hash is required");
 
 		toast.clear();
-		let temp = Output.Client = new Tg.TelegramClient(
+		let temp = new Tg.TelegramClient(
 			new Tg.sessions.StringSession(Input.StringSession ?? ''),
 			Input.API_ID,
 			Input.API_Hash, {
@@ -73,6 +73,9 @@ class extends Blackprint.Node {
 		}
 
 		temp.setLogLevel("error"); // only errors
+
+		// Send to output
+		Output.Client = temp;
 	}
 	_onEvent(event){
 		if(event.className === void 0){
