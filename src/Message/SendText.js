@@ -1,14 +1,26 @@
+/**
+ * Send text message to target user
+ * @blackprint node
+ */
 Blackprint.registerNode("Telegram/Message/SendText",
 class extends Blackprint.Node {
 	static input = {
+		/** Telegram client for a user account */
 		Client: Tg.TelegramClient,
+		/** Trigger the send process */
 		Send: Blackprint.Port.Trigger(function(){this.send()}),
+		/** Target ChatID (Optional) */
 		ChatId: String,
+		/** Target Username (Optional) */
 		Username: String,
+		/** Text message that will be send */
 		Text: String,
 	};
 	static output = {
-		Message: Object,
+		/** Message object */
+		Message: Blackprint.Port.StructOf(Object, {
+			Id: {type: String, handle: v=> String(v.id)},
+		}),
 	};
 
 	constructor(instance){

@@ -8,12 +8,18 @@ let Blackprint = window.Blackprint.loadScope({
 
 	// This will autoload (*.sf.mjs) and (*.sf.css) file for Browser
 	hasInterface: true,
+
+	// This will autoload (*.docs.json) for Browser
+	hasDocs: true,
 });
 
 await imports([
 	// "http://localhost:6789/dist/telegram.js", // npm run build-gramjs
-	"https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.0.1-dep/dist/browser/telegram.js",
+	"https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.0.2-dep/dist/browser/telegram.js",
 ]);
+
+// Give some time for telegram.js to initialize
+await new Promise(resolve => setTimeout(resolve), 200);
 
 let Tg = window.telegram;
 

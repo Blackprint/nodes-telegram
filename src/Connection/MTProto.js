@@ -1,16 +1,29 @@
+/**
+ * Connect into a user/bot account on Telegram server
+ * @blackprint node
+ */
 Blackprint.registerNode("Telegram/Connection/MTProto",
 class extends Blackprint.Node {
 	static input = {
+		/** Begin the connection/reconnection */
 		Connect: Blackprint.Port.Trigger(function(){this.connect()}),
+		/** Disconnect from the server */
 		Disconnect: Blackprint.Port.Trigger(function(){this.disconnect()}),
+		/** Bot/user's session token (Optional) */
 		StringSession: String,
+		/** Bot's auth token */
 		AuthToken: String,
+		/** Telegram cleint's API ID */
 		API_ID: Number,
+		/** Telegram cleint's API Hash */
 		API_Hash: String,
+		/** If connection failed, try again in specific time */
 		RetryDelay: Blackprint.Port.Default(Number, 10000),
 	};
 	static output = {
+		/** Telegram client for a user account */
 		Client: Tg.TelegramClient,
+		/** Return true if connected */
 		IsConnected: Boolean,
 	};
 
@@ -21,7 +34,8 @@ class extends Blackprint.Node {
 		iface.title = "Telegram MTProto";
 		// iface.type = "event";
 
-		this._toast = new NodeToast(iface);
+		let toast = this._toast = new NodeToast(iface);
+		toast.warn("Disconnected");
 	}
 
 	update(){
