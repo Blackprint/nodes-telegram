@@ -39,8 +39,8 @@
    Blackprint.Environment.isNode = false;
  
    // Alternative for Blackprint.loadModuleFromURL(...);
-   await import("../dist/nodes-rename-me.mjs"); // For Browser/Node.js
-   await import("../dist/nodes-rename-me.sf.mjs"); // For Browser UI
+   await import("../dist/nodes-telegram.mjs"); // For Browser/Node.js
+   await import("../dist/nodes-telegram.sf.mjs"); // For Browser UI
  
    // Wait and avoid Jest's test environment being torn down
    await Blackprint.getContext('LibraryName');
@@ -51,6 +51,6 @@
  });
  
  test("Create a node", async () => {
-   instance.createNode('LibraryName/FeatureName/Template', {id: 'The_ID'});
+   instance.createNode('Telegram/Connection/MTProto', {id: 'The_ID'});
    expect(instance.iface.The_ID).toBeDefined();
  });
