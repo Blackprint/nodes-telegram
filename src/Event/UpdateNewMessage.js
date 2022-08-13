@@ -34,7 +34,10 @@ class extends Blackprint.Node {
 		let { Input, Output } = this.ref;
 		if(!Input.Client) return;
 
-		this._callback = ev => Output.Message = ev.message;
+		this._callback = ev => {
+			Output.Message = ev.message
+			this.routes.routeOut();
+		};
 		Input.Client._bpOn('UpdateNewMessage', this._callback);
 	}
 

@@ -8,7 +8,7 @@ class extends Blackprint.Node {
 		/** Telegram client for a user account */
 		Client: Tg.TelegramClient,
 		/** Trigger the send process */
-		Send: Blackprint.Port.Trigger(function(){this.send()}),
+		Send: Blackprint.Port.Trigger(function({ iface }){iface.node.send()}),
 		/** Target ChatID (Optional) */
 		ChatId: String,
 		/** Target Username (Optional) */
@@ -57,6 +57,7 @@ class extends Blackprint.Node {
 
 		try {
 			Output.Message = await Input.Client.sendMessage(chatId, {message: Input.Text});
+			this.routes.routeOut();
 		} catch(e) {
 			console.error(e);
 			Output.Message = null;

@@ -6,9 +6,9 @@ Blackprint.registerNode("Telegram/Connection/MTProto",
 class extends Blackprint.Node {
 	static input = {
 		/** Begin the connection/reconnection */
-		Connect: Blackprint.Port.Trigger(function(){this.connect()}),
+		Connect: Blackprint.Port.Trigger(function({ iface }){iface.node.connect()}),
 		/** Disconnect from the server */
-		Disconnect: Blackprint.Port.Trigger(function(){this.disconnect()}),
+		Disconnect: Blackprint.Port.Trigger(function({ iface }){iface.node.disconnect()}),
 		/** Bot/user's session token (Optional) */
 		StringSession: String,
 		/** Bot's auth token */

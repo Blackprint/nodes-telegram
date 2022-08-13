@@ -13,15 +13,22 @@ let Blackprint = window.Blackprint.loadScope({
 	hasDocs: true,
 });
 
-await imports([
-	// "http://localhost:6789/dist/telegram.js", // npm run build-gramjs
-	"https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.0.2-dep/dist/browser/telegram.js",
-]);
+let Tg;
+if(Blackprint.Environment.loadFromURL){
+	await imports([
+		// "http://localhost:6789/dist/telegram.js", // npm run build-gramjs
+		"https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.0.2-dep/dist/browser/telegram.js",
+	]);
 
-// Give some time for telegram.js to initialize
-await new Promise(resolve => setTimeout(resolve), 200);
+	// Give some time for telegram.js to initialize
+	await new Promise(resolve => setTimeout(resolve), 200);
+	if(window.telegram == null)
+		await new Promise(resolve => setTimeout(resolve), 5000);
 
-let Tg = window.telegram;
+	if(window.telegram == null) throw new Error("Telegram library didn't initialized");
+	Tg = window.telegram;
+}
+else Tg = await import('telegram');
 
 // Global shared context
 let Context = Blackprint.createContext('Telegram');
