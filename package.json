@@ -1,7 +1,7 @@
 {
   "name": "@blackprint/nodes-telegram",
   "description": "Blackprint nodes for Telegram",
-  "version": "0.0.2-dep",
+  "version": "0.0.3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,9 +24,6 @@
     "jest": "28.x",
     "jest-environment-node": "28.x",
     "jest-environment-jsdom": "28.x"
-  },
-  "blackprint": {
-    "engine": ">=0.6.4"
   },
   "keywords": [
     "blackprint"
