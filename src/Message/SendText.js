@@ -60,9 +60,9 @@ class extends Blackprint.Node {
 			this.routes.routeOut();
 		} catch(e) {
 			console.error(e);
-			Output.Message = null;
 			toast.warn();
 			toast.error("Failed to send message");
+			Output.Message = null;
 		}
 
 		toast.clear();

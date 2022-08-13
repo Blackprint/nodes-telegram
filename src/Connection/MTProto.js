@@ -35,7 +35,6 @@ class extends Blackprint.Node {
 		// iface.type = "event";
 
 		let toast = this._toast = new NodeToast(iface);
-		toast.warn("Disconnected");
 	}
 
 	update(){
@@ -58,6 +57,8 @@ class extends Blackprint.Node {
 			return toast.warn("API_Hash is required");
 
 		toast.clear();
+		toast.warn("Disconnected");
+
 		let temp = new Tg.TelegramClient(
 			new Tg.sessions.StringSession(Input.StringSession ?? ''),
 			Input.API_ID,
