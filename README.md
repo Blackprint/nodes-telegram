@@ -1,15 +1,15 @@
 [![NPM](https://img.shields.io/npm/v/@blackprint/nodes-telegram.svg)](https://www.npmjs.com/package/@blackprint/nodes-telegram)
-[![Build Status](https://github.com/Blackprint/nodes-telegram/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/Blackprint/nodes-telegram/actions/workflows/build.yml)
+[![Build Status](https://github.com/Blackprint/nodes-telegram/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Blackprint/nodes-telegram/actions/workflows/build.yml)
 
 ## Blackprint nodes for Telegram
-This module is depends on [gramjs](https://github.com/gram-js/gramjs) (MIT License).
+This module is depends on [gramjs](https://github.com/gram-js/gramjs) (MIT License). Please click this [link](https://blackprint.github.io/#page/sketch/1#;openExample:github.com/Blackprint/nodes-telegram) to open examples from the editor.
 
 ## Import this nodes from URL
 Please specify the version to avoid breaking changes.
 
 ```js
 Blackprint.loadModuleFromURL([
-  'https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.0.1/dist/nodes-telegram.mjs'
+  'https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.0.x/dist/nodes-telegram.mjs'
 ], {
   // Turn this on if you want to load .sf.js, and .sf.css
   // only with single .mjs
