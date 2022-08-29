@@ -7,7 +7,7 @@ let Blackprint = window.Blackprint.loadScope({
 	url: import.meta.url,
 
 	// This will autoload (*.sf.mjs) and (*.sf.css) file for Browser
-	hasInterface: true,
+	// hasInterface: true,
 
 	// This will autoload (*.docs.json) for Browser
 	hasDocs: true,
@@ -20,10 +20,10 @@ if(Blackprint.Environment.loadFromURL){
 		"https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.0.2-dep/dist/browser/telegram.js",
 	]);
 
-	// Give some time for telegram.js to initialize
-	await new Promise(resolve => setTimeout(resolve), 200);
-	if(window.telegram == null)
-		await new Promise(resolve => setTimeout(resolve), 5000);
+	// Sometime the browser is cached the old module and telegram couldn't be initialized
+	// Let's try again for browser
+	if(window.telegram == null && window.sf?.loader != null)
+		await sf.loader.js(["https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.0.2-dep/dist/browser/telegram.js"]);
 
 	if(window.telegram == null) throw new Error("Telegram library didn't initialized");
 	Tg = window.telegram;
