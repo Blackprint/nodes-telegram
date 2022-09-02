@@ -6,9 +6,9 @@ Blackprint.registerNode("Telegram/Connection/MTProto",
 class extends Blackprint.Node {
 	static input = {
 		/** Begin the connection/reconnection */
-		Connect: Blackprint.Port.Trigger(function({ iface }){iface.node.connect()}),
+		Connect: Blackprint.Port.Trigger(({ iface })=> iface.node.connect()),
 		/** Disconnect from the server */
-		Disconnect: Blackprint.Port.Trigger(function({ iface }){iface.node.disconnect()}),
+		Disconnect: Blackprint.Port.Trigger(({ iface })=> iface.node.disconnect()),
 		/** Bot/user's session token (Optional) */
 		StringSession: String,
 		/** Bot's auth token */
@@ -35,6 +35,7 @@ class extends Blackprint.Node {
 		// iface.type = "event";
 
 		let toast = this._toast = new NodeToast(iface);
+		toast.warn("Disconnected");
 	}
 
 	update(){
@@ -123,8 +124,8 @@ class extends Blackprint.Node {
 
 		try{
 			if(!Input.AuthToken)
-				await this.ref.Output.Client.connect();
-			else await this.ref.Output.Client.start({
+				await Output.Client.connect();
+			else await Output.Client.start({
 				botAuthToken: Input.AuthToken,
 				onError(msg){
 					toast.error("Failed to connect");
@@ -140,14 +141,59 @@ class extends Blackprint.Node {
 			toast.warn();
 		}
 
+		if(!Output.Client._bpchangedsender){
+			Output.Client._bpchangedsender = true;
+
+			let backupClient = Output.Client;
+			let that = this;
+			let _disconnect = Output.Client._sender.disconnect;
+			Output.Client._sender.disconnect = async function() {
+				toast.warn("Disconnected");
+				Output.IsConnected = false;
+
+				await _disconnect.apply(this, arguments);
+				if(backupClient !== Output.Client || !that._autoReconnect) return;
+
+				toast.warn("Reconnecting");
+				let promise = backupClient.connect();
+	
+				let reconnectTry = 0;
+				let tryInterval = setInterval(async ()=> {
+					if(backupClient !== Output.Client || !that._autoReconnect || backupClient.connected){
+						clearInterval(tryInterval);
+						Output.IsConnected = true;
+						toast.clear();
+						toast.success("Connected");
+					}
+					else {
+						toast.warn("Reconnecting " + (++reconnectTry));
+						await backupClient.connect();
+					}
+				}, 5000);
+
+				await promise;
+				setTimeout(()=> {
+					if(backupClient.connected && !backupClient._sender.userDisconnected){
+						toast.clear();
+						toast.success("Connected");
+						clearInterval(tryInterval);
+					}
+				}, 100);
+			}
+		}
+
+		this._autoReconnect = true;
+
 		toast.clear();
 		toast.success("Connected");
 		Output.IsConnected = true;
 	}
 	destroy(){this.disconnect()}
 	disconnect(){
-		this.ref.Output.Client?.disconnect();
-		this.ref.Output.IsConnected = false;
+		let { Output } = this.ref;
+		Output.Client?.disconnect();
+		this._autoReconnect = false;
+		Output.IsConnected = false;
 		this._toast.warn("Disconnected");
 	}
 });
