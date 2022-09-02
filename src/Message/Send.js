@@ -2,13 +2,13 @@
  * Send text message to target user
  * @blackprint node
  */
-Blackprint.registerNode("Telegram/Message/SendText",
+Blackprint.registerNode("Telegram/Message/Send",
 class extends Blackprint.Node {
 	static input = {
 		/** Telegram client for a user account */
 		Client: Tg.TelegramClient,
 		/** Trigger the send process */
-		Send: Blackprint.Port.Trigger(function({ iface }){iface.node.send()}),
+		Send: Blackprint.Port.Trigger(({ iface })=> iface.node.send()),
 		/** Target ChatID (Optional) */
 		ChatId: String,
 		/** Target Username (Optional) */
@@ -27,7 +27,7 @@ class extends Blackprint.Node {
 		super(instance);
 
 		let iface = this.setInterface();
-		iface.title = "Send Text Message";
+		iface.title = "Send Message";
 		this._toast = new NodeToast(iface);
 	}
 
@@ -56,7 +56,12 @@ class extends Blackprint.Node {
 		toast.warn("Sending");
 
 		try {
-			Output.Message = await Input.Client.sendMessage(chatId, {message: Input.Text});
+			Output.Message = await Input.Client.sendMessage(chatId, {
+				// noWebpage: true,
+				message: Input.Text,
+				// parseMode: 'html',
+			});
+			Output.Message._bp_client = Input.Client;
 			this.routes.routeOut();
 		} catch(e) {
 			console.error(e);
