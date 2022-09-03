@@ -2,7 +2,7 @@
  * Listen to new message event
  * @blackprint node
  */
-Blackprint.registerNode("Telegram/Event/UpdateNewMessage",
+Blackprint.registerNode("Telegram/Event/NewMessage",
 class extends Blackprint.Node {
 	static input = {
 		/** Telegram client for a user account */
@@ -30,18 +30,49 @@ class extends Blackprint.Node {
 		iface.type = "event";
 	}
 
+	init(){
+		let { Input, IInput } = this.ref;
+		IInput.Client.on('disconnect', ev => {
+			if(this._callback == null) return;
+			Input.Client._bpOff('UpdateNewMessage', this._callback);
+		});
+	}
+
 	update(){
 		let { Input, Output } = this.ref;
 		if(!Input.Client) return;
 
-		this._callback = ev => {
-			Output.Message = ev.message
+		Input.Client._bpOn('UpdateNewMessage', this._callback = ev => {
+			// console.log(ev);
+			Output.Message = ev.message;
 			this.routes.routeOut();
-		};
-		Input.Client._bpOn('UpdateNewMessage', this._callback);
+		});
 	}
 
 	destroy(){
 		this.ref.Input.Client?._bpOff('UpdateNewMessage', this._callback);
 	}
 });
+
+// UpdateEditMessage
+// UpdateEditChannelMessage
+// UpdateNewChannelMessage
+// UpdateNewMessage
+// UpdateShortSentMessage
+// UpdateBotCallbackQuery
+// UpdateChannelUserTyping
+// UpdateUserStatus
+// UpdateDeleteMessages
+// UpdateReadChannelInbox
+// UpdateMessagePoll
+// UpdateUserName
+// UpdateUserPhoto
+// UpdateDeleteChannelMessages
+// UpdateGroupCallParticipants
+// UpdateDraftMessage
+// UpdateChatParticipant
+// UpdateChatParticipants
+// UpdateBotInlineQuery
+// UpdateInlineBotCallbackQuery
+// UpdateBotInlineSend
+// UpdateGroupCall
