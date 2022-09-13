@@ -11,6 +11,8 @@ class extends Blackprint.Node {
 		Message: Context.VirtualType(Object, "Message"),
 		/** Text for being send */
 		Text: String,
+		/** For adding button to the message or user keyboard */
+		ReplyMarkup: Blackprint.Port.Union([Tg.Api.ReplyKeyboardMarkup, Tg.Api.ReplyInlineMarkup]),
 	};
 
 	constructor(instance){

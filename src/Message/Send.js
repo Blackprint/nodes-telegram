@@ -19,10 +19,10 @@ class extends Blackprint.Node {
 		 * You can also use username by adding @ as the first character
 		 */
 		SendAs: String,
-		/** For sending button */
-		ReplyMarkup: Blackprint.Port.Union([Tg.Api.ReplyKeyboardMarkup, Tg.Api.ReplyInlineMarkup]),
 		/** Text message that will be send */
 		Text: String,
+		/** For adding button to the message or user keyboard */
+		ReplyMarkup: Blackprint.Port.Union([Tg.Api.ReplyKeyboardMarkup, Tg.Api.ReplyInlineMarkup]),
 	};
 	static output = {
 		/** Message object */
