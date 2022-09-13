@@ -7,8 +7,8 @@ class extends Blackprint.Node {
 	static input = {
 		/** Trigger the send process */
 		Send: Blackprint.Port.Trigger(({ iface })=> iface.node.send()),
-		/** Target Message object (Optional) */
-		Message: Object,
+		/** Target Message object */
+		Message: Context.VirtualType(Object, "Message"),
 		/** Text for being send */
 		Text: String,
 	};

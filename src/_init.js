@@ -13,7 +13,8 @@ let Blackprint = window.Blackprint.loadScope({
 	hasDocs: true,
 });
 
-let Tg;
+let Tg, fetch = globalThis.fetch ?? require('node-fetch');
+
 if(Blackprint.Environment.loadFromURL){
 	await imports([
 		// "http://localhost:6789/dist/telegram.js", // npm run build-gramjs
@@ -40,3 +41,14 @@ Context.EventSlot = {slot: 'my-private-event-slot'};
 // The error must be thrown
 Tg.Logger.prototype.error = function(e){throw e};
 let VirtualClass = Tg.Api.Chat.prototype.constructor;
+let Buffer = globalThis.Buffer ?? Tg.tl.serializeBytes('').constructor;
+
+let ButtonComponentNodeList = {};
+
+// Fix minified class name
+Blackprint.utils.renameTypeName({
+	InputBotInlineResult: Tg.Api.InputBotInlineResult,
+	KeyboardButtonRow: Tg.Api.KeyboardButtonRow,
+	ReplyKeyboardMarkup: Tg.Api.ReplyKeyboardMarkup,
+	ReplyInlineMarkup: Tg.Api.ReplyInlineMarkup,
+});

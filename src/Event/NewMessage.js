@@ -4,13 +4,14 @@
  */
 Blackprint.registerNode("Telegram/Event/NewMessage",
 class extends Blackprint.Node {
+	static type = 'event';
 	static input = {
 		/** Telegram client for a user account */
 		Client: Tg.TelegramClient,
 	};
 	static output = {
 		/** New message data */
-		Message: Blackprint.Port.StructOf(Object, {
+		Message: Context.VirtualType(Blackprint.Port.StructOf(Object, {
 			/** Message sender's id */
 			SenderId: {type: String, handle: v=> String(v.senderId)},
 			/** Message chat room's id */
@@ -19,7 +20,7 @@ class extends Blackprint.Node {
 			Id: {type: String, handle: v=> String(v.id)},
 			/** Message's text value */
 			Value: {type: String, field: 'message'},
-		}),
+		}), "Message"),
 	};
 
 	constructor(instance){
@@ -27,7 +28,6 @@ class extends Blackprint.Node {
 
 		let iface = this.setInterface();
 		iface.title = "On New Message";
-		iface.type = "event";
 	}
 
 	init(){
