@@ -88,6 +88,11 @@ class extends Blackprint.Node {
 			list.splice(i, 1);
 		}
 
+		temp._bpOn('UpdateInlineBotCallbackQuery', ev => {
+			let id = ev.data.toString('utf8');
+			ButtonComponentNodeList[id]?.userClick(ev);
+		});
+
 		temp.setLogLevel("error"); // only errors
 
 		// Send to output

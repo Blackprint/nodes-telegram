@@ -2,7 +2,7 @@
  * ToDo
  * @blackprint node
  */
-Blackprint.registerNode("Telegram/Message/Inline/Result/Game",
+Blackprint.registerNode("Telegram/Message/InlineQuery/Result/Game",
 class extends Blackprint.Node {
 	static input = {
 		Id: String,
@@ -19,7 +19,7 @@ class extends Blackprint.Node {
 		iface.title = "Create game result";
 	}
 
-	async update(){
+	update(){
 		let { Input, Output } = this.ref;
 
 		Output.Button = new Tg.Api.InputBotInlineResult({

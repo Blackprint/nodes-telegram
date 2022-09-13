@@ -2,7 +2,7 @@
  * ToDo
  * @blackprint node
  */
-Blackprint.registerNode("Telegram/Message/Inline/Respond",
+Blackprint.registerNode("Telegram/Message/InlineQuery/Respond",
 class extends Blackprint.Node {
 	static input = {
 		/** Trigger the send process */
@@ -17,6 +17,10 @@ class extends Blackprint.Node {
 		let iface = this.setInterface();
 		iface.title = "Respond to Inline Query";
 		this._toast = new NodeToast(iface);
+
+		this.listenClickEvent = ev => {
+			console.log(ev);
+		};
 	}
 
 	async send(){
@@ -24,6 +28,11 @@ class extends Blackprint.Node {
 		let toast = this._toast;
 
 		if(!Input.Query) return toast.warn("Query is required");
+
+		this._lastClient?._bpOff('UpdateBotInlineSend', this.listenClickEvent);
+
+		this._lastClient = Input.Query._client;
+		this._lastClient._bpOn('UpdateBotInlineSend', this.listenClickEvent);
 
 		toast.warn("Sending");
 		try {
