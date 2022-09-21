@@ -5,7 +5,8 @@
 Blackprint.registerNode("Telegram/Message/Component/ButtonRow",
 class extends Blackprint.Node {
 	static input = {
-		Button: Blackprint.Port.ArrayOf(Tg.Api.KeyboardButtonCallback),
+		ButtonCallback: Blackprint.Port.ArrayOf(Tg.Api.KeyboardButtonCallback),
+		ButtonReply: Blackprint.Port.ArrayOf(Tg.Api.KeyboardButton),
 	};
 	static output = {
 		Row: Tg.Api.KeyboardButtonRow,
@@ -20,6 +21,8 @@ class extends Blackprint.Node {
 
 	async update(){
 		let { Input, Output } = this.ref;
-		Output.Row = new Tg.Api.KeyboardButtonRow({buttons: Input.Button});
+		Output.Row = new Tg.Api.KeyboardButtonRow({
+			buttons: [...Input.ButtonCallback, ...Input.ButtonReply]
+		});
 	}
 });

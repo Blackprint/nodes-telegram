@@ -2,7 +2,7 @@
  * ToDo
  * @blackprint node
  */
-Blackprint.registerNode("Telegram/Message/Component/Button",
+Blackprint.registerNode("Telegram/Message/Component/ButtonCallback",
 class extends Blackprint.Node {
 	static input = {
 		Text: String,
@@ -19,7 +19,7 @@ class extends Blackprint.Node {
 		super(instance);
 
 		let iface = this.setInterface();
-		iface.title = "Create a button";
+		iface.title = "Create a callback button";
 		this._id = 'ɃƤ_'+String(Date.now()).slice(3) + (Math.random()*1e3 | 0);
 
 		ButtonComponentNodeList[this._id] = this;

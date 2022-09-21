@@ -51,4 +51,6 @@ Blackprint.utils.renameTypeName({
 	KeyboardButtonRow: Tg.Api.KeyboardButtonRow,
 	ReplyKeyboardMarkup: Tg.Api.ReplyKeyboardMarkup,
 	ReplyInlineMarkup: Tg.Api.ReplyInlineMarkup,
+	KeyboardButtonCallback: Tg.Api.KeyboardButtonCallback,
+	KeyboardButton: Tg.Api.KeyboardButton,
 });
