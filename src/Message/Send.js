@@ -54,6 +54,7 @@ class extends Blackprint.Node {
 				message: Input.Text,
 				replyToMsgId: Input.ReplyToMsgId,
 				sendAs: Input.SendAs ? await Input.Client.getInputEntity(Input.SendAs) : undefined,
+				buttons: Input.ReplyMarkup,
 				// parseMode: 'html',
 			});
 			Output.Message._bp_client = Input.Client;

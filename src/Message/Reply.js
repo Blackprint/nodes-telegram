@@ -38,6 +38,7 @@ class extends Blackprint.Node {
 				// noWebpage: true,
 				replyTo: Message.id,
 				message: Input.Text,
+				buttons: Input.ReplyMarkup,
 				// parseMode: 'html',
 			});
 			this.routes.routeOut();
