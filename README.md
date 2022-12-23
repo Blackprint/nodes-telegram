@@ -19,9 +19,9 @@ Blackprint.loadModuleFromURL([
 
 ## Development URL
 You can use this link to load unpublished nodes and still under development on GitHub.
-> `https://cdn.jsdelivr.net/gh/Blackprint/nodes-telegram@dist/nodes-telegram.mjs?1`
+https://cdn.jsdelivr.net/gh/Blackprint/nodes-telegram@dist/nodes-telegram.mjs
 
-Please append `/url-here?random-number` if your browser still using the cached files after the repository was updated.
+Replace `dist` with your latest commit hash (from `dist` branch) to avoid cache from CDN.
 
 ### License
 MIT
