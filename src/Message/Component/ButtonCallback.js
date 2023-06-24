@@ -12,7 +12,7 @@ class extends Blackprint.Node {
 	static output = {
 		Button: Tg.Api.KeyboardButtonCallback,
 		/** Can be called use clicked the button and the Data input is not defined */
-		Callback: Function,
+		Callback: Blackprint.Types.Trigger,
 	};
 
 	constructor(instance){
