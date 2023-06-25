@@ -9,7 +9,7 @@ Please specify the version to avoid breaking changes.
 
 ```js
 Blackprint.loadModuleFromURL([
-  'https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.0.x/dist/nodes-telegram.mjs'
+  'https://cdn.jsdelivr.net/npm/@blackprint/nodes-telegram@0.1.x/dist/nodes-telegram.mjs'
 ], {
   // Turn this on if you want to load .sf.js, and .sf.css
   // only with single .mjs
